@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 \## Tech stack
 
 \- Frontend: Vue 3 + Vite
@@ -34,3 +35,6 @@ pip install -r requirements.txt
 
 uvicorn app:app --reload
 
+=======
+# task-menager
+>>>>>>> ddf44e71f95a1d25f40840336a0855fcaa3fc773
