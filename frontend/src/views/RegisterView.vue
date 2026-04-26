@@ -37,63 +37,80 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <section class="auth-layout">
+  <section class="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
     <AuthShowcase
-      eyebrow="Start nowego konta"
-      title="Stworz konto i zbuduj swoj workflow."
-      description="Ten ekran od razu korzysta z obecnego kontraktu backendu, wiec po rejestracji uzytkownik zostaje zalogowany bez dodatkowego kroku."
+      eyebrow="Rejestracja"
+      title="Zaloz konto i wejdz do flow pracy bez dodatkowego zamieszania."
+      description="Rejestracja jest teraz bardziej premium wizualnie, ale dalej szybka. Formularz od razu trzyma pola zgodne z backendem, a po utworzeniu konta mozemy wejsc prosto do aplikacji."
       :metrics="[
-        { label: 'pola dopasowane do API', value: '05' },
-        { label: 'autologowanie po starcie', value: 'yes' },
-        { label: 'baza pod onboarding', value: 'ready' },
+        { label: 'pola zgodne z API', value: '05' },
+        { label: 'autologowanie', value: 'on' },
+        { label: 'profil pod taski', value: 'ready' },
       ]"
     />
 
-    <section class="card auth-card">
-      <p class="eyebrow">Rejestracja</p>
-      <h1>Zaloz konto</h1>
-      <p class="auth-card__copy">
-        Minimalny formularz, ale z miejscem na dane osobowe, zeby pozniej
-        sensownie pokazywac autora i assignee.
+    <section
+      class="rounded-[34px] border border-white/60 bg-white/82 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.12)] backdrop-blur-xl md:p-8"
+    >
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-royal-600">
+            Rejestracja
+          </p>
+          <h1 class="mt-3 font-display text-4xl leading-tight text-ink-950">
+            Zaloz konto
+          </h1>
+        </div>
+        <span class="rounded-full bg-jade-500/10 px-3 py-2 text-xs font-semibold text-jade-500">
+          onboarding
+        </span>
+      </div>
+
+      <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+        Minimalny formularz, ale juz z danymi potrzebnymi do pokazywania autora,
+        assignee i profilu uzytkownika w dalszych sekcjach aplikacji.
       </p>
 
-      <form class="auth-form auth-form--two-columns" @submit.prevent="handleSubmit">
-        <label class="field">
-          <span>Imie</span>
+      <form class="mt-8 grid gap-5 md:grid-cols-2" @submit.prevent="handleSubmit">
+        <label class="block space-y-2">
+          <span class="text-sm font-medium text-slate-700">Imie</span>
           <input
             v-model="form.first_name"
             type="text"
             name="first_name"
             autocomplete="given-name"
-            placeholder="Krystian"
+            placeholder="Jan"
+            class="w-full rounded-2xl border border-slate-200/90 bg-white px-4 py-3.5 text-ink-950 outline-none transition placeholder:text-slate-400 focus:-translate-y-0.5 focus:border-royal-600/40 focus:ring-4 focus:ring-azure-500/10"
           />
         </label>
 
-        <label class="field">
-          <span>Nazwisko</span>
+        <label class="block space-y-2">
+          <span class="text-sm font-medium text-slate-700">Nazwisko</span>
           <input
             v-model="form.last_name"
             type="text"
             name="last_name"
             autocomplete="family-name"
             placeholder="Nowak"
+            class="w-full rounded-2xl border border-slate-200/90 bg-white px-4 py-3.5 text-ink-950 outline-none transition placeholder:text-slate-400 focus:-translate-y-0.5 focus:border-royal-600/40 focus:ring-4 focus:ring-azure-500/10"
           />
         </label>
 
-        <label class="field">
-          <span>Nazwa uzytkownika</span>
+        <label class="block space-y-2">
+          <span class="text-sm font-medium text-slate-700">Nazwa uzytkownika</span>
           <input
             v-model="form.username"
             type="text"
             name="username"
             autocomplete="username"
-            placeholder="krystian.dev"
+            placeholder="jan.dev"
             required
+            class="w-full rounded-2xl border border-slate-200/90 bg-white px-4 py-3.5 text-ink-950 outline-none transition placeholder:text-slate-400 focus:-translate-y-0.5 focus:border-royal-600/40 focus:ring-4 focus:ring-azure-500/10"
           />
         </label>
 
-        <label class="field">
-          <span>Email</span>
+        <label class="block space-y-2">
+          <span class="text-sm font-medium text-slate-700">Email</span>
           <input
             v-model="form.email"
             type="email"
@@ -101,11 +118,15 @@ async function handleSubmit() {
             autocomplete="email"
             placeholder="ty@firma.pl"
             required
+            class="w-full rounded-2xl border border-slate-200/90 bg-white px-4 py-3.5 text-ink-950 outline-none transition placeholder:text-slate-400 focus:-translate-y-0.5 focus:border-royal-600/40 focus:ring-4 focus:ring-azure-500/10"
           />
         </label>
 
-        <label class="field field--full">
-          <span>Haslo</span>
+        <label class="block space-y-2 md:col-span-2">
+          <div class="flex items-center justify-between gap-3">
+            <span class="text-sm font-medium text-slate-700">Haslo</span>
+            <span class="text-xs text-slate-400">Minimum 6 znakow</span>
+          </div>
           <input
             v-model="form.password"
             type="password"
@@ -114,15 +135,19 @@ async function handleSubmit() {
             placeholder="Minimum 6 znakow"
             minlength="6"
             required
+            class="w-full rounded-2xl border border-slate-200/90 bg-white px-4 py-3.5 text-ink-950 outline-none transition placeholder:text-slate-400 focus:-translate-y-0.5 focus:border-royal-600/40 focus:ring-4 focus:ring-azure-500/10"
           />
         </label>
 
-        <p v-if="props.auth.state.error" class="form-message form-message--error field--full">
+        <p
+          v-if="props.auth.state.error"
+          class="rounded-2xl border border-red-500/15 bg-red-500/10 px-4 py-3 text-sm text-red-900 md:col-span-2"
+        >
           {{ props.auth.state.error }}
         </p>
 
         <button
-          class="button button--primary button--full field--full"
+          class="inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-br from-azure-500 to-royal-600 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_16px_30px_rgba(37,99,235,0.24)] transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70 disabled:hover:translate-y-0 md:col-span-2"
           type="submit"
           :disabled="props.auth.state.loading"
         >
@@ -130,10 +155,19 @@ async function handleSubmit() {
         </button>
       </form>
 
-      <p class="auth-card__footer">
-        Masz juz konto?
-        <RouterLink to="/login">Zaloguj sie</RouterLink>
-      </p>
+      <div
+        class="mt-6 flex flex-col gap-3 rounded-[24px] border border-slate-200/70 bg-slate-900/[0.03] px-4 py-4 md:flex-row md:items-center md:justify-between"
+      >
+        <p class="text-sm leading-6 text-slate-600">
+          Masz juz konto?
+          <RouterLink class="font-semibold text-royal-600" to="/login">
+            Zaloguj sie
+          </RouterLink>
+        </p>
+        <span class="text-xs uppercase tracking-[0.24em] text-slate-400">
+          create profile
+        </span>
+      </div>
     </section>
   </section>
 </template>

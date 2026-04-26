@@ -49,3 +49,84 @@ export function fetchCurrentUser(token) {
     },
   });
 }
+
+function authHeaders(token, extras = {}) {
+  return {
+    Authorization: `Bearer ${token}`,
+    ...extras,
+  };
+}
+
+export function fetchProjects(token) {
+  return request('/projects/', {
+    headers: authHeaders(token),
+  });
+}
+
+export function createProject(token, projectData) {
+  return request('/projects/', {
+    method: 'POST',
+    headers: authHeaders(token, {
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(projectData),
+  });
+}
+
+export function deleteProject(token, projectId) {
+  return request(`/projects/${projectId}`, {
+    method: 'DELETE',
+    headers: authHeaders(token),
+  });
+}
+
+export function fetchTasks(token) {
+  return request('/tasks/', {
+    headers: authHeaders(token),
+  });
+}
+
+export function createTask(token, taskData) {
+  return request('/tasks/', {
+    method: 'POST',
+    headers: authHeaders(token, {
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(taskData),
+  });
+}
+
+export function updateTaskStatus(token, taskId, statusData) {
+  return request(`/tasks/${taskId}/status`, {
+    method: 'PATCH',
+    headers: authHeaders(token, {
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(statusData),
+  });
+}
+
+export function deleteTask(token, taskId) {
+  return request(`/tasks/${taskId}`, {
+    method: 'DELETE',
+    headers: authHeaders(token),
+  });
+}
+
+export function fetchUsers(token) {
+  return request('/users/', {
+    headers: authHeaders(token),
+  });
+}
+
+export function fetchTaskStatuses(token) {
+  return request('/task-statuses/', {
+    headers: authHeaders(token),
+  });
+}
+
+export function fetchTaskPriorities(token) {
+  return request('/task-priorities/', {
+    headers: authHeaders(token),
+  });
+}

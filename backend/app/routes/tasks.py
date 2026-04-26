@@ -5,14 +5,14 @@ from sqlalchemy.orm import Session
 
 from app.dependencies import get_db, get_current_user
 from app.models.user import User
-from app.schemas.task import TaskCreate, TaskUpdate, TaskResponse, TaskStatusUpdate
+from app.schemas.task import TaskCreate, TaskResponse, TaskStatusUpdate, TaskUpdate
 from app.crud.task import (
-    get_tasks,
-    get_task,
     create_task,
+    delete_task,
+    get_task,
+    get_tasks,
     update_task_by_author,
     update_task_status_by_assignee,
-    delete_task,
 )
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
@@ -67,7 +67,7 @@ def edit_task(
     if task.author_id != current_user.id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Tylko autor może edytować task"
+            detail="Tylko autor moze edytowac task"
         )
 
     return update_task_by_author(db, task, task_data)
@@ -87,10 +87,10 @@ def edit_task_status(
             detail="Task nie istnieje"
         )
 
-    if task.assignee_id != current_user.id:
+    if task.assignee_id != current_user.id and task.author_id != current_user.id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Tylko przypisany użytkownik może zmienić status"
+            detail="Status moze zmienic tylko autor lub przypisany uzytkownik"
         )
 
     return update_task_status_by_assignee(db, task, status_data)
@@ -112,8 +112,8 @@ def remove_task(
     if task.author_id != current_user.id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Tylko autor może usunąć task"
+            detail="Tylko autor moze usunac task"
         )
 
     delete_task(db, task)
-    return {"message": "Task usunięty"}
+    return {"message": "Task usuniety"}

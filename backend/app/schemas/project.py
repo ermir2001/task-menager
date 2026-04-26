@@ -12,7 +12,7 @@ class ProjectUpdate(BaseModel):
 
 class ProjectResponse(BaseModel):
     id: int
-    author_id: int
+    owner_id: int
     name: str
     description: Optional[str] = None
     created_at: datetime

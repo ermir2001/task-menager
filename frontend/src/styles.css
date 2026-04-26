@@ -1,4 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-display: "Sora", "Space Grotesk", sans-serif;
+  --color-ink-950: #0f172a;
+  --color-ink-900: #111827;
+  --color-ink-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-400: #94a3b8;
+  --color-azure-500: #3b82f6;
+  --color-royal-600: #2563eb;
+  --color-jade-500: #22c55e;
+  --color-amber-500: #f59e0b;
+  --color-red-500: #ef4444;
+  --color-snow-50: #f8fafc;
+  --color-snow-100: #eff4fb;
+}
 
 :root {
   --ink-950: #0f172a;
@@ -34,7 +53,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
   color: var(--ink-950);
   background:
     radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 32%),
@@ -300,7 +319,6 @@ img {
 
 .hero__copy h1 {
   font-size: clamp(2.8rem, 5vw, 5rem);
-  max-width: 12ch;
 }
 
 .hero__copy h1 span {

@@ -4,9 +4,9 @@ from app.models.project import Project
 from app.schemas.project import ProjectCreate, ProjectUpdate
 
 
-def create_project(db: Session, project: ProjectCreate, author_id: int):
+def create_project(db: Session, project: ProjectCreate, owner_id: int):
     db_project = Project(
-       author_id = author_id,
+       owner_id=owner_id,
        name = project.name,
        description = project.description
     )
@@ -26,13 +26,13 @@ def update_project(db: Session, db_project: Project, project_data: ProjectUpdate
     return db_project
 
 
-def get_projects(db: Session, author_id: int):
-    return db.query(Project).filter(Project.author_id == author_id).all()
+def get_projects(db: Session, owner_id: int):
+    return db.query(Project).filter(Project.owner_id == owner_id).all()
 
-def get_project(db: Session, project_id: int, author_id: int):
+def get_project(db: Session, project_id: int, owner_id: int):
     return db.query(Project).filter(
             Project.id == project_id,
-            Project.author_id == author_id,
+            Project.owner_id == owner_id,
 
         ).first()
 

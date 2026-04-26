@@ -17,7 +17,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-    projects = relationship("Project", back_populates="author")
+    projects = relationship("Project", back_populates="author", foreign_keys="Project.owner_id")
     comments = relationship("TaskComment", back_populates="user")
 
     authored_tasks = relationship(

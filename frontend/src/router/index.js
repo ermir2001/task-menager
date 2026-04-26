@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import { useAuth } from '../lib/auth';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
+
+const auth = useAuth();
 
 const routes = [
   {
@@ -18,6 +21,7 @@ const routes = [
     name: 'login',
     component: LoginView,
     meta: {
+      guestOnly: true,
       title: 'Task Manager | Logowanie',
     },
   },
@@ -26,6 +30,7 @@ const routes = [
     name: 'register',
     component: RegisterView,
     meta: {
+      guestOnly: true,
       title: 'Task Manager | Rejestracja',
     },
   },
@@ -41,6 +46,14 @@ const router = createRouter({
   scrollBehavior() {
     return { top: 0 };
   },
+});
+
+router.beforeEach((to) => {
+  if (to.meta.guestOnly && auth.state.token) {
+    return { name: 'home' };
+  }
+
+  return true;
 });
 
 router.afterEach((to) => {
